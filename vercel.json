@@ -5,6 +5,17 @@
   "installCommand": null,
   "outputDirectory": "docs",
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/reports", "destination": "/report", "permanent": false },
+    { "source": "/cases", "destination": "/case-studies", "permanent": false },
+    { "source": "/case/1", "destination": "/case-studies/01-mule-ring", "permanent": false },
+    { "source": "/case/2", "destination": "/case-studies/02-device-farm-return-swap", "permanent": false },
+    { "source": "/case/3", "destination": "/case-studies/03-family-phone-false-alarm", "permanent": false },
+    { "source": "/case/4", "destination": "/case-studies/04-busy-minute-false-alarm", "permanent": false },
+    { "source": "/case/5", "destination": "/case-studies/05-slow-ring-evasion", "permanent": false },
+    { "source": "/recruiter", "destination": "/recruiter-kit", "permanent": false },
+    { "source": "/slides", "destination": "/Fraud_Ring_Investigator.pptx", "permanent": false }
+  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -1,0 +1,28 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Build and run all tests
+        run: ./scripts/build.sh
+      - name: Benchmark (30 seeds, busy traffic)
+        run: java -jar build/fraud-ring-investigator.jar bench --runs 30 --rate 40
+      - name: Sample report
+        run: |
+          mkdir report
+          java -jar build/fraud-ring-investigator.jar demo --seed 7 --seconds 120 > report/demo.txt
+          java -jar build/fraud-ring-investigator.jar farm --seed 5 --seconds 150 > report/device-farm-evidence.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sample-report
+          path: report/

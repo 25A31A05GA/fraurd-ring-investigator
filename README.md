@@ -2,13 +2,13 @@
 
 > **Catch mule rings and device farms in seconds, not weeks.** A zero-dependency Java detection engine + REST API + a live investigation dashboard for Indian e-commerce and UPI payment fraud. Everything runs on synthetic data, so it is safe to explore, fork and demo.
 
-[![CI](https://github.com/YOUR-USERNAME/fraud-ring-investigator/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR-USERNAME/fraud-ring-investigator/actions)
+[![CI](https://github.com/REPLACE-WITH-YOUR-USERNAME/fraud-ring-investigator/actions/workflows/ci.yml/badge.svg)](https://github.com/REPLACE-WITH-YOUR-USERNAME/fraud-ring-investigator/actions)
 ![Java 17+](https://img.shields.io/badge/Java-17%2B-orange)
 ![Dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen)
 ![Tests](https://img.shields.io/badge/tests-26%20passing-brightgreen)
 ![License MIT](https://img.shields.io/badge/license-MIT-blue)
 
-**[▶ Live demo](https://fraud-tracenet.vercel.app/)**  · [Project report](docs/REPORT.md) · [Case studies](docs/case-studies/README.md) · [Slide deck](docs/Fraud_Ring_Investigator.pptx) · [API](docs/API.md) · [Architecture](docs/ARCHITECTURE.md)
+**[▶ Live demo](https://fraud-tracenet.vercel.app/)** · [Dashboard](https://fraud-tracenet.vercel.app/dashboard.html) · [Report](https://fraud-tracenet.vercel.app/report.html) · [Cases](https://fraud-tracenet.vercel.app/case-studies/) · [Slides](https://fraud-tracenet.vercel.app/Fraud_Ring_Investigator.pptx) · [API docs](https://fraud-tracenet.vercel.app/api.html) · [Architecture](https://fraud-tracenet.vercel.app/architecture.html)
 
 ![Fraud network explorer: a mule ring converging on one account, with the phone, victims and cash-out](docs/assets/network.png)
 
@@ -35,7 +35,7 @@ Alerts that touch the same account or phone are **merged into one case**. The sc
 - Relatives sharing one phone (same surname) are ignored
 - Shoppers paying Flipkart, Myntra or Swiggy are ignored
 - Small friendly loops under ₹10,000 and two-person ping-pong are ignored
-- Many *small* payments that merely add up in a busy minute are ignored (found by benchmarking, see the [report](docs/REPORT.md))
+- Many *small* payments that merely add up in a busy minute are ignored (found by benchmarking, see the [report](https://fraud-tracenet.vercel.app/report.html))
 
 **Device-farm lab:** find phones with many accounts, verify returned serial numbers against dispatched ones, *hang* (freeze) a whole farm in one call, gate new signups (`ALLOWED / REVIEW / BLOCKED`), and export an evidence report.
 
@@ -61,7 +61,7 @@ Plus a test that runs **20 seeds of normal traffic with nothing planted and requ
 You only need a **JDK 17+**. No Maven, no Gradle, no downloads.
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/fraud-ring-investigator.git
+git clone https://github.com/REPLACE-WITH-YOUR-USERNAME/fraud-ring-investigator.git
 cd fraud-ring-investigator
 ./scripts/run.sh                 # compile + 26 tests + demo
 ```
@@ -104,7 +104,7 @@ World (synthetic) ──► payments, 1 second at a time ──► DetectionEngi
                                                                    recall, precision, speed        └──► ApiServer (REST, JDK built-in)
 ```
 
-Full walkthrough in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+Full walkthrough in [Architecture](https://fraud-tracenet.vercel.app/architecture.html).
 
 ## Project layout
 
@@ -146,7 +146,7 @@ Being upfront is part of the project:
 
 ## The story behind it
 
-What we tried, what failed, what it fixed and what inspired it: read the **[project report](docs/REPORT.md)** and the **[case studies](docs/case-studies/README.md)**.
+What we tried, what failed, what it fixed and what inspired it: read the **[project report](https://fraud-tracenet.vercel.app/report.html)** and the **[case studies](https://fraud-tracenet.vercel.app/case-studies/)**.
 
 ## Responsible use
 

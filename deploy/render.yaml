@@ -1,0 +1,10 @@
+# One-click backend deploy on Render (free tier works): New + > Blueprint > pick this repo.
+services:
+  - type: web
+    name: fraud-ring-investigator-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 8080
