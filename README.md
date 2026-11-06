@@ -144,6 +144,48 @@ Being upfront is part of the project:
 - [ ] Graph-ML scoring (community detection) next to the rules
 - [ ] JUnit 5 migration (kept dependency-free for now)
 
+## Behind the Build: Scenarios, Engineering & Lessons
+
+This section explains what the repository actually implements, using the project's synthetic scenarios and measurable work. The scenarios below are **simulated examples**, not claims about real customers, investigations or bank incidents.
+
+### Real-world-inspired scenarios
+
+| Scenario | What the synthetic data represents | What the engine checks |
+|---|---|---|
+| **UPI mule-account ring** | Several unrelated people send money into one account; funds move through connected accounts and return in a short cycle | Fan-in, circular transfers and rapid cash-out |
+| **Shared-device account network** | Multiple accounts with different surnames operate from the same phone | Shared-device pattern; alerts connected to the same account or phone are merged |
+| **Fast cash-out** | A large incoming payment is followed by most of the money leaving within seconds | At least 80% of an inflow of ₹50,000+ leaves quickly |
+| **Coordinated account loop** | Money passes through a 3–4-account path and returns to its origin | Depth-first-search cycle detection for qualifying transfers |
+
+The device-farm lab also demonstrates serial-number checks for returned goods, signup decisions (`ALLOWED / REVIEW / BLOCKED`), and freezing a group of linked accounts in the synthetic environment.
+
+### What was implemented
+
+- A **Java 17+**, zero-dependency detection engine, with a built-in REST API and command-line interface.
+- **Four rule-based detection patterns**: shared device, rapid cash-out, circular transfers and fan-in.
+- A case book that combines alerts sharing an account or phone and records the evidence behind each score.
+- A device-farm lab and a browser dashboard for exploring generated cases.
+- A JDK-only build/test workflow and CI configuration.
+
+**Model count: 0 trained machine-learning models.** The current Java detector is rule- and graph-based; it uses hand-set thresholds and graph traversal, not a trained classifier. Graph-ML scoring is listed as future work, not an existing feature.
+
+### Experiments, testing and engineering challenges
+
+The repository includes **26 tests** and a benchmark that runs **100 random seeds** over simulated traffic. It also checks **20 seeds of normal traffic with no planted fraud**, expecting zero cases. The benchmark currently reports up to approximately **112,000 events/second** in its 40-events/second simulation configuration.
+
+A key engineering challenge was avoiding obvious false positives in the synthetic environment. The implemented safeguards include ignoring same-surname shared-phone groups, ordinary payments to named merchants, small friendly loops and two-person ping-pong, and busy-minute totals made only from small payments. These are rule-specific safeguards, not proof that the system is ready for production.
+
+The benchmark has an important limitation: the simulator plants patterns that the detector is designed to recognize. Its perfect synthetic recall and precision therefore measure agreement with the simulator's ground truth, **not expected performance on real payment data**.
+
+### What this project does not claim
+
+- It does not include real bank, UPI or e-commerce customer records.
+- It does not demonstrate deployment in a bank or a verified real-world fraud investigation.
+- It does not contain trained ML models or claim production-grade fraud accuracy.
+- The repository does not maintain a reliable record of AI assistants/tools used or a line-by-line provenance of copied versus original code, so no tool list or originality percentage is claimed here.
+
+For the implementation details and current limitations, see [Architecture](https://fraurd-ring-investigator.vercel.app/architecture), the [project report](https://fraurd-ring-investigator.vercel.app/report) and [case studies](https://fraurd-ring-investigator.vercel.app/case-studies).
+
 ## The story behind it
 
 What we tried, what failed, what it fixed and what inspired it: read the **[project report](https://fraurd-ring-investigator.vercel.app/report)** and the **[case studies](https://fraurd-ring-investigator.vercel.app/case-studies)**.
